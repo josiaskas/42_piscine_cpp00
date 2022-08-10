@@ -6,12 +6,13 @@
 #define EX01_PHONEBOOK_H
 #include <iostream>
 #include "Contact.hpp"
+#define  BOOK_SIZE 8
 
 namespace PhoneBook {
-
 	class PhoneBook {
 		private:
-			Contact::Contact contacts[8];
+			Contact::Contact contacts[BOOK_SIZE];
+			int cursor;
 		public:
 			PhoneBook();
 			~PhoneBook();

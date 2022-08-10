@@ -4,21 +4,23 @@
 #include "PhoneBook.hpp"
 
 namespace PhoneBook {
-	PhoneBook::PhoneBook(){}
+	PhoneBook::PhoneBook(): cursor(0){}
 	PhoneBook::~PhoneBook(){};
 
 	void PhoneBook::add(void){
 		bool isAdded = false;
-		for (int i = 0; i < 8; ++i)
+		for (int i = 0; i < BOOK_SIZE; ++i)
 		{
 			if (!this->contacts[i].isFilled){
 				this->contacts[i].fillContact();
 				isAdded = true;
+				this->cursor++;
 				break;
 			}
 		}
 		if (!isAdded){
-			this->contacts[0].fillContact();
+			this->contacts[cursor % BOOK_SIZE].fillContact();
+			this->cursor++;
 		}
 	}
 	void PhoneBook::search() const{
@@ -28,14 +30,14 @@ namespace PhoneBook {
 		std::cout << std::setw(10) << "First name" << '|';
 		std::cout << std::setw(10) << "Last name" << '|';
 		std::cout << std::setw(10) << "Nickname"<< '|'<< std::endl;
-		for (int i = 0; i < 8; ++i){
+		for (int i = 0; i < BOOK_SIZE; ++i){
 			this->contacts[i].showContact(Contact::COLUMN, i);
 			if (this->contacts[i].isFilled){
 				filled++;
 			}
 		}
 		if (filled == 0){
-			std::cout << "Aucun Contact" << std::endl;
+			std::cout << "     Aucun Contact" << std::endl;
 			return;
 		}
 		do{
