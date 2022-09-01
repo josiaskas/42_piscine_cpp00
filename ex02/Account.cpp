@@ -13,6 +13,7 @@ Account::Account(void) : _amount(0), _nbDeposits(0), _nbWithdrawals(0)
 {
 	_accountIndex = _nbAccounts;
 	_nbAccounts++;
+	_displayTimestamp();
 	std::cout	<< "index:" << _accountIndex
 				<< ";amount:" << _amount << ";created"<<std::endl;
 }
@@ -22,6 +23,7 @@ Account::Account(int initial_deposit) : _amount(initial_deposit), _nbDeposits(0)
 	_accountIndex = _nbAccounts;
 	_nbAccounts++;
 	_totalAmount += initial_deposit;
+	_displayTimestamp();
 	std::cout	<< "index:"<< _accountIndex
 				<< ";amount:" << _amount << ";created"<<std::endl;
 }
@@ -29,12 +31,14 @@ Account::Account(int initial_deposit) : _amount(initial_deposit), _nbDeposits(0)
 Account::~Account(void)
 {
 	_nbAccounts--;
+	_displayTimestamp();
 	std::cout	<< "index:"<< _accountIndex
 				<< ";amount:" << _amount << ";closed"<<std::endl;
 }
 
 void Account::makeDeposit(int deposit)
 {
+	_displayTimestamp();
 	std::cout	<< "index:" << _accountIndex
 				<< ";p_amount:" << _amount
 			  	<< ";deposit:" << deposit << ";";
@@ -52,6 +56,7 @@ void Account::makeDeposit(int deposit)
 
 bool Account::makeWithdrawal(int withdrawal)
 {
+	_displayTimestamp();
 	std::cout	<< "index:" << _accountIndex
 				<< ";p_amount:" << _amount
 				<< ";withdrawal:";
@@ -98,11 +103,17 @@ inline int Account::getNbWithdrawals(void)
 
 void Account::_displayTimestamp()
 {
-	std::cout << "[" << 23 << "] ";
+	char	format_time[32] = {0};
+	time_t  clock = std::time(nullptr);
+	std::tm *clock_data = std::localtime(&clock);
+
+	std::strftime(format_time, 32, "[%Y%m%d_%H%M%S] ", clock_data);
+	std::cout << format_time;
 }
 
 void Account::displayAccountsInfos(void)
 {
+	_displayTimestamp();
 	std::cout	<< "accounts:" << Account::_nbAccounts << ";"
 				<< "total:" << Account::_totalAmount << ";"
 				<< "deposits:" << Account::_totalNbDeposits << ";"
@@ -111,6 +122,7 @@ void Account::displayAccountsInfos(void)
 
 void Account::displayStatus(void) const
 {
+	_displayTimestamp();
 	std::cout	<< "index:" << _accountIndex << ";"
 				<< "amount:" << _amount << ";"
 			  	<< "deposits:" << _nbDeposits << ";"
