@@ -12,7 +12,7 @@
 
 NAME=megaphone
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98 -g
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 INCLUDES_DIR = includes/
 SRCS_DIR = srcs/
 OBJS_DIR = objs/
