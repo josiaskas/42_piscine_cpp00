@@ -11,7 +11,7 @@ namespace PhoneBook {
 		bool isAdded = false;
 		for (int i = 0; i < BOOK_SIZE; ++i)
 		{
-			if (!this->contacts[i].isFilled){
+			if (!this->contacts[i].getIsFilled()){
 				this->contacts[i].fillContact();
 				isAdded = true;
 				this->cursor++;
@@ -32,7 +32,8 @@ namespace PhoneBook {
 		std::cout << std::setw(10) << "Nickname"<< '|'<< std::endl;
 		for (int i = 0; i < BOOK_SIZE; ++i){
 			this->contacts[i].showContact(Contact::COLUMN, i);
-			if (this->contacts[i].isFilled){
+			if (this->contacts[i].getIsFilled())
+			{
 				filled++;
 			}
 		}

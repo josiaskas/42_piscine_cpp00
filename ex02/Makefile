@@ -6,11 +6,11 @@
 #    By: jkasongo <jkasongo@student.42quebec.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/22 18:37:04 by jkasongo          #+#    #+#              #
-#    Updated: 2022/08/07 19:58:42 by jkasongo         ###   ########.fr        #
+#    Updated: 2022/09/02 12:43:31 by jkasongo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=account
+NAME=Account
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 INCLUDES_DIR = includes/
