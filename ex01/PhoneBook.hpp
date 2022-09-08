@@ -4,22 +4,26 @@
 
 #ifndef EX01_PHONEBOOK_H
 #define EX01_PHONEBOOK_H
+
 #include <iostream>
 #include "Contact.hpp"
+
 #define  BOOK_SIZE 8
 
-namespace PhoneBook {
-	class PhoneBook {
-		private:
-			Contact::Contact contacts[BOOK_SIZE];
-			int cursor;
-		public:
-			PhoneBook();
-			~PhoneBook();
-			void add(void);
-			void search(void) const;
-	};
 
-} // PhoneBook
+class PhoneBook {
+	private:
+	Contact::Contact _contacts[BOOK_SIZE];
+	int _cursor;
+
+	public:
+	PhoneBook();
+
+	~PhoneBook();
+
+	void add(void);
+
+	void search(void) const;
+};
 
 #endif //EX01_PHONEBOOK_H

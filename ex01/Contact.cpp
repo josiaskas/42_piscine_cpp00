@@ -5,10 +5,13 @@
 #include "Contact.hpp"
 
 namespace Contact {
-	Contact::Contact(void) : _firstName(""), _lastName(""), _nickName(""), _phoneNumber(""), _darkestSecret(""), _isFilled(false)
+	Contact::Contact(void) : _firstName(""), _lastName(""), _nickName(""),
+							 _phoneNumber(""), _darkestSecret(""),
+							 _isFilled(false)
 	{
 
 	}
+
 	Contact::~Contact(void)
 	{
 	}
@@ -86,47 +89,64 @@ namespace Contact {
 		{
 			if (format == FULL)
 			{
-				std::cout << "First Name: " << this->_firstName << std::endl;
-				std::cout << "Last Name: " << this->_lastName << std::endl;
-				std::cout << "Nickname: " << this->_nickName << std::endl;
-				std::cout << "Phone Number: " << this->_phoneNumber << std::endl;
-				std::cout << "Darkest Secret: " << this->_darkestSecret << std::endl;
+				std::cout << "First Name: " << _firstName << std::endl;
+				std::cout << "Last Name: " << _lastName << std::endl;
+				std::cout << "Nickname: " << _nickName << std::endl;
+				std::cout << "Phone Number: " << _phoneNumber << std::endl;
+				std::cout << "Darkest Secret: " << _darkestSecret << std::endl;
 			}
 			else
 			{
 				std::cout << std::setw(10) << index << '|';
-				printInCol(this->_firstName);
-				printInCol(this->_lastName);
-				printInCol(this->_nickName);
+				printInCol(_firstName);
+				printInCol(_lastName);
+				printInCol(_nickName);
 				std::cout << std::endl;
 			}
 		}
 	}
 
-	std::string Contact::getValue(const std::string &field) const
+	bool Contact::isAValidNumber(const std::string &str) const
+	{
+		for (size_t i = 0; i < str.length(); i++)
+		{
+			const char c = str[i];
+			if (!std::isdigit(c))
+			{
+				if (c == '+' && i == 0)
+					continue;
+				std::cout
+						<< "\033[0;31mLe numéro doit être '+chiffres' ou 'chiffres'\033[0m"
+						<< std::endl;
+				return (false);
+			}
+		}
+		return true;
+	}
+
+	std::string
+	Contact::getValue(const std::string &field, bool needChecking) const
 	{
 		std::string str_readed;
+		bool is_valid = true;
 
 		do
 		{
-			std::cout << field <<": ";
+			std::cout << field << ": ";
 			std::getline(std::cin, str_readed);
-			std::cout << std::endl;
-			if (str_readed.length() > 0)
-				break;
-		} while (str_readed.length() == 0);
+			if (needChecking)
+				is_valid = isAValidNumber(str_readed);
+		} while ((str_readed.length() == 0) || !is_valid);
 
 		return (str_readed);
 	}
 
 	bool Contact::fillContact(void)
 	{
-		_isFilled = false;
-
 		_firstName = getValue("FirstName");
 		_lastName = getValue("LastName");
 		_nickName = getValue("NickName");
-		_phoneNumber = getValue("Phone Number");
+		_phoneNumber = getValue("Phone Number", true);
 		_darkestSecret = getValue("Darkest Secret");
 		_isFilled = true;
 		return (_isFilled);
